@@ -1,6 +1,7 @@
-import { Controller, Get, Query, Render } from '@nestjs/common';
+import { Body, Controller, Get, Post, Query, Render } from '@nestjs/common';
 import { AppService } from './app.service.js';
 import { Product } from './Product.js';
+import { CreateProductDto } from './CreateProductDto.dto.js';
 
 const products: Product[] = [
   {
@@ -97,6 +98,24 @@ export class AppController {
     return {
       title: "Szűrés",
       products: matchingProducts.toSorted((a, b) => b.stock - a.stock)
+    }
+  }
+
+  @Get("/new")
+  @Render("newProduct")
+  getNewForm() {
+    return {
+      title: "Új termék létrehozása"
+    }
+  }
+
+  @Post("/new")
+  @Render("newProduct")
+  addNewProduct(@Body() body: CreateProductDto) {
+    products.push({name: body.name, category: body.category, price: parseInt(body.price), stock: parseInt(body.stock)});
+    return {
+      title: "Új termék létrehozása", 
+      message: "Sikeres felvitel"
     }
   }
 }

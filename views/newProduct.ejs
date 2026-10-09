@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title %></title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1><%= title %></h1>
+    <a href="/">Főoldal</a>
+    <form method="post">
+        <label for="name">Termék neve:</label>
+        <input type="text" name="name" required> <br>
+        <label for="category">Kategória:</label>
+        <select name="category" required>
+            <option value="elektronika">Elektronika</option>
+            <option value="ruházat">Ruházat</option>
+            <option value="könyv">Könyv</option>
+            <option value="játék">Játék</option>
+        </select> <br>
+        <label for="price">Ár:</label>
+        <input type="number" name="price" min="0" value="0"> <br>
+        <label for="stock">Készlet száma:</label> 
+        <input type="number" name="stock" min="0" value="0"> <br>
+        <button type="submit">Beküldés</button>
+    </form>
+    <p style="color: white; background-color: green;"><%= locals.message %></p>
+</body>
+</html>
