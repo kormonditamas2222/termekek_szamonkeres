@@ -10,6 +10,41 @@
 </head>
 <body>
     <h1><%= title %></h1>
-    Hello EJS!
+    <a href="/filter">Szűrés</a>
+    <a href="/new">Új termék</a>
+    <table>
+        <thead>
+            <th>Termék neve</th>
+            <th>Kategória</th>
+            <th>Ár</th>
+            <th>Raktárkészlet</th>
+        </thead>
+        <tbody>
+            <% for(const product of products) { %>
+                <% if (product.stock < 5 && product.stock != 0) { %>
+                    <tr>
+                        <td><%= product.name %></td>
+                        <td><%= product.category %></td>
+                        <td><%= product.price %></td>
+                        <td style="color: red; font-weight: bold;"><%= product.stock %></td>
+                    </tr>
+                <% } else if (product.stock == 0) { %>
+                    <tr style="background-color: red; font-weight: bold; color: white;">
+                        <td><%= product.name %></td>
+                        <td><%= product.category %></td>
+                        <td><%= product.price %></td>
+                        <td><%= product.stock %></td>
+                    </tr>
+                <% } else { %>
+                    <tr>
+                        <td><%= product.name %></td>
+                        <td><%= product.category %></td>
+                        <td><%= product.price %></td>
+                        <td><%= product.stock %></td>
+                    </tr>
+                <% } %>
+            <% } %>
+        </tbody>
+    </table>
 </body>
 </html>

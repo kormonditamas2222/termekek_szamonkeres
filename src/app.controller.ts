@@ -74,7 +74,8 @@ export class AppController {
   @Render('index')
   getHello() {
     return {
-      title: 'My First NestJS App'
+      title: 'Terméklista',
+      products
     }
   }
 }
