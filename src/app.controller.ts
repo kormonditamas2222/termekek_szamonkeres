@@ -118,4 +118,30 @@ export class AppController {
       message: "Sikeres felvitel"
     }
   }
+
+  @Get("/stats")
+  @Render("stats")
+  getStats() {
+    const db = products.length;
+    let sum = 0;
+    let avg: number;
+    let min = products[0].price;
+    let max = 0;
+    for (const product of products) {
+      sum += product.price;
+      if (product.price < min) {
+        min = product.price;
+      }
+      if (product.price > max) {
+        max = product.price
+      }
+    }
+    avg = sum / db;
+    return {
+      title: "Statisztika",
+      db, 
+      avg: Math.round(avg), 
+      min, max
+    }
+  }
 }
