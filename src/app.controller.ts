@@ -1,4 +1,4 @@
-import { Controller, Get, Render } from '@nestjs/common';
+import { Controller, Get, Query, Render } from '@nestjs/common';
 import { AppService } from './app.service.js';
 import { Product } from './Product.js';
 
@@ -75,7 +75,28 @@ export class AppController {
   getHello() {
     return {
       title: 'Terméklista',
-      products
+      products: products.toSorted((a, b) => a.price - b.price)
+    }
+  }
+
+  @Get("/filter")
+  @Render("filter")
+  getCategory(@Query("category") inputCategory: string) {
+    const matchingProducts: Product[] = [];
+    if (!inputCategory) {
+      return {
+        title: "Szűrés",
+        products: matchingProducts
+      }
+    }
+    for (const product of products) {
+      if (product.category == inputCategory) {
+        matchingProducts.push(product)
+      }
+    }
+    return {
+      title: "Szűrés",
+      products: matchingProducts.toSorted((a, b) => b.stock - a.stock)
     }
   }
 }
